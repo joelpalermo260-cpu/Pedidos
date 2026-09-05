@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú | Sabor & Brasas</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#f7f2e8;color:#241b15}
+header{background:#1d1a17;color:#fff;padding:28px 18px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 3px 14px #0002}
+header h1{margin:0;font-size:30px} header p{margin:7px 0 0;color:#f4c95d}
+.container{max-width:1050px;margin:auto;padding:22px 15px 120px}
+.section-title{font-size:25px;margin:28px 0 15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+.card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 5px 18px #0001;border:1px solid #eadfce}
+.badge{display:inline-block;background:#f4c95d;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}
+.card h3{margin:10px 0 7px;font-size:21px}.desc{font-size:14px;line-height:1.5;color:#665b53;min-height:64px}
+.price{font-size:22px;font-weight:bold;margin:12px 0}
+button{border:0;border-radius:12px;padding:12px 16px;font-weight:bold;cursor:pointer}
+.add{background:#1d1a17;color:#fff;width:100%}.add:hover{background:#382f29}
+.cart{position:fixed;right:18px;bottom:18px;background:#1d1a17;color:#fff;padding:15px 19px;border-radius:50px;box-shadow:0 5px 20px #0004;z-index:20}
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:30;align-items:flex-end;justify-content:center}
+.modal.show{display:flex}.panel{background:#fff;width:min(680px,100%);max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:22px}
+.close{float:right;background:#eee}.item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+.qty button{padding:6px 10px;background:#eee}.total{font-size:24px;font-weight:bold;margin:18px 0}
+label{display:block;font-weight:bold;margin-top:12px}input,select,textarea{width:100%;padding:12px;border:1px solid #d7cdbf;border-radius:10px;margin-top:6px;font-size:15px}
+.send{width:100%;background:#25d366;color:#fff;font-size:17px;margin-top:15px}
+.note{font-size:12px;color:#777;margin-top:10px}
+.location-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.location-btn{background:#eee;color:#241b15;width:100%}
+.location-btn.primary{background:#4285f4;color:#fff}
+.location-status{font-size:13px;margin-top:8px;color:#555;line-height:1.4}
+.location-link{display:none;margin-top:8px;padding:10px 12px;background:#f1f6ff;border-radius:10px;color:#185abc;text-decoration:none;font-size:14px;font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+<h1>🔥 Sabor & Brasas</h1>
+<p>Haz tu pedido fácil y rápido</p>
+</header>
+
+<main class="container">
+<div class="section-title">🍔 Hamburguesas</div>
+<div class="grid">
+<div class="card"><span class="badge">Incluye papas</span><h3>Hamburguesa Clásica</h3><p class="desc">Carne de res, queso amarillo, lechuga china, jitomate, cebolla caramelizada y chiles en vinagre.</p><div class="price">$75 MXN</div><button class="add" onclick="add('Hamburguesa Clásica',75)">Agregar al pedido</button></div>
+<div class="card"><span class="badge">Incluye papas</span><h3>Hamburguesa BBQ</h3><p class="desc">Carne de res bañada en salsa BBQ, queso amarillo, cebolla caramelizada y jamón.</p><div class="price">$85 MXN</div><button class="add" onclick="add('Hamburguesa BBQ',85)">Agregar al pedido</button></div>
+<div class="card"><span class="badge">Incluye papas</span><h3>Hamburguesa Suprema</h3><p class="desc">Doble carne: res y longaniza, salchichas asadas, jamón con queso gratinado, queso amarillo y jalapeño asado.</p><div class="price">$120 MXN</div><button class="add" onclick="add('Hamburguesa Suprema',120)">Agregar al pedido</button></div>
+</div>
+
+<div class="section-title">🌯 Burritos</div>
+<div class="grid">
+<div class="card"><h3>Burrito Campechano</h3><p class="desc">Tortilla de harina grande, longaniza, cecina, bistec de puerco, frijoles, mayonesa, catsup, salsa mango habanero, lechuga y queso Oaxaca derretido.</p><div class="price">$55 MXN</div><button class="add" onclick="add('Burrito Campechano',55)">Agregar al pedido</button></div>
+</div>
+
+<div class="section-title">🌭 Hot Dogs</div>
+<div class="grid">
+<div class="card"><h3>Hot Dog</h3><p class="desc">Pan media noche, salchicha envuelta en tocino, cebolla caramelizada, jitomate y chiles en vinagre en cubos.</p><div class="price">$35 MXN</div><button class="add" onclick="add('Hot Dog',35)">Agregar al pedido</button></div>
+</div>
+
+<div class="section-title">🍗 Alitas</div>
+<div class="grid">
+<div class="card"><span class="badge">6 alitas + papas + ranch</span><h3>Alitas BBQ</h3><p class="desc">Orden de 6 alitas con salsa BBQ, ración de papas fritas y aderezo ranch.</p><div class="price">$90 MXN</div><button class="add" onclick="add('Alitas BBQ',90)">Agregar al pedido</button></div>
+<div class="card"><span class="badge">6 alitas + papas + ranch</span><h3>Alitas Mango Habanero</h3><p class="desc">Orden de 6 alitas con salsa mango habanero, ración de papas fritas y aderezo ranch.</p><div class="price">$90 MXN</div><button class="add" onclick="add('Alitas Mango Habanero',90)">Agregar al pedido</button></div>
+</div>
+</main>
+
+<button class="cart" onclick="openCart()">🛒 Ver pedido (<span id="count">0</span>)</button>
+
+<div class="modal" id="modal">
+<div class="panel">
+<button class="close" onclick="closeCart()">✕</button>
+<h2>🛒 Tu pedido</h2>
+<div id="items"></div>
+<div class="total">Total: $<span id="total">0</span> MXN</div>
+
+<label>Nombre *</label><input id="name" placeholder="Tu nombre">
+<label>Tipo de pedido *</label>
+<select id="type" onchange="toggleAddress()"><option value="Domicilio">Domicilio</option><option value="Recoger">Recoger en el negocio</option></select>
+<div id="addressBox">
+<label>Dirección *</label><textarea id="address" rows="2" placeholder="Calle, número, colonia..."></textarea>
+<label>📍 Ubicación en Google Maps</label>
+<div class="location-actions">
+<button type="button" class="location-btn primary" onclick="openGoogleMaps()">🗺️ Abrir Google Maps</button>
+<button type="button" class="location-btn" onclick="useCurrentLocation()">📌 Usar mi ubicación</button>
+</div>
+<div id="locationStatus" class="location-status">Puedes abrir Google Maps para revisar tu domicilio o usar tu ubicación actual.</div>
+<a id="locationLink" class="location-link" href="#" target="_blank" rel="noopener">📍 Ver ubicación seleccionada en Google Maps</a>
+<input type="hidden" id="latitude"><input type="hidden" id="longitude">
+<label>Referencia</label><input id="reference" placeholder="Ej. frente a la tienda...">
+</div>
+<label>Forma de pago *</label>
+<select id="payment"><option>Efectivo</option><option>Transferencia</option><option>Otro</option></select>
+<label>Notas</label><textarea id="notes" rows="2" placeholder="Sin cebolla, alguna indicación, etc."></textarea>
+<button class="send" onclick="sendWhatsApp()">📲 Enviar pedido por WhatsApp</button>
+<p class="note">El pedido se abrirá en WhatsApp para que puedas revisarlo antes de enviarlo.</p>
+</div>
+</div>
+
+<script>
+let cart=[];
+function add(name,price){let x=cart.find(i=>i.name===name);if(x)x.qty++;else cart.push({name,price,qty:1});update();openCart();}
+function update(){
+ document.getElementById('count').textContent=cart.reduce((s,i)=>s+i.qty,0);
+ let total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+ document.getElementById('total').textContent=total;
+ document.getElementById('items').innerHTML=cart.length?cart.map((i,n)=>`
+ <div class="item"><div><b>${i.name}</b><br>$${i.price} c/u</div>
+ <div class="qty"><button onclick="change(${n},-1)">−</button> ${i.qty} <button onclick="change(${n},1)">+</button></div></div>`).join(''):'<p>Tu carrito está vacío.</p>';
+}
+function change(n,d){cart[n].qty+=d;if(cart[n].qty<=0)cart.splice(n,1);update();}
+function openCart(){document.getElementById('modal').classList.add('show');update();}
+function closeCart(){document.getElementById('modal').classList.remove('show');}
+function toggleAddress(){document.getElementById('addressBox').style.display=document.getElementById('type').value==='Domicilio'?'block':'none';}
+
+function openGoogleMaps(){
+  const lat=document.getElementById('latitude').value;
+  const lng=document.getElementById('longitude').value;
+  const address=document.getElementById('address').value.trim();
+  const url=(lat&&lng)
+    ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(lat+','+lng)
+    : (address
+      ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(address)
+      : 'https://www.google.com/maps/');
+  window.open(url,'_blank');
+  document.getElementById('locationStatus').textContent='Google Maps se abrió en otra pestaña. Si quieres enviar la ubicación exacta, regresa y pulsa “Usar mi ubicación”.';
+}
+
+function useCurrentLocation(){
+  if(!navigator.geolocation){
+    alert('Tu navegador no permite obtener la ubicación automáticamente. Usa “Abrir Google Maps”.');
+    return;
+  }
+  const status=document.getElementById('locationStatus');
+  status.textContent='Obteniendo tu ubicación…';
+  navigator.geolocation.getCurrentPosition(function(pos){
+    const lat=pos.coords.latitude.toFixed(6);
+    const lng=pos.coords.longitude.toFixed(6);
+    document.getElementById('latitude').value=lat;
+    document.getElementById('longitude').value=lng;
+    const mapsUrl='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(lat+','+lng);
+    const link=document.getElementById('locationLink');
+    link.href=mapsUrl;
+    link.style.display='block';
+    status.textContent='✅ Ubicación guardada. Se enviará el enlace de Google Maps con el pedido.';
+  },function(){
+    status.textContent='No se pudo obtener la ubicación. Revisa los permisos del navegador.';
+    alert('No se pudo obtener tu ubicación. Asegúrate de permitir el acceso a la ubicación.');
+  },{enableHighAccuracy:true,timeout:10000,maximumAge:0});
+}
+
+function sendWhatsApp(){
+ if(!cart.length)return alert('Agrega al menos un producto.');
+ let name=document.getElementById('name').value.trim(), type=document.getElementById('type').value;
+ let address=document.getElementById('address').value.trim();
+ if(!name)return alert('Escribe tu nombre.');
+ if(type==='Domicilio'&&!address)return alert('Escribe tu dirección.');
+ let total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+ let msg='🔥 *NUEVO PEDIDO*%0A%0A👤 *Cliente:* '+name+
+ '%0A📦 *Tipo:* '+type;
+ if(type==='Domicilio'){
+  msg+='%0A🏠 *Dirección:* '+address+'%0A📍 *Referencia:* '+(document.getElementById('reference').value.trim()||'No indicada');
+  const lat=document.getElementById('latitude').value;
+  const lng=document.getElementById('longitude').value;
+  if(lat&&lng){
+    const mapsUrl='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(lat+','+lng);
+    msg+='%0A🗺️ *Ubicación en Google Maps:* '+mapsUrl;
+  }
+}
+ msg+='%0A💳 *Pago:* '+document.getElementById('payment').value+'%0A%0A🧾 *Productos:*';
+ cart.forEach(i=>msg+='%0A• '+i.qty+' × '+i.name+' — $'+(i.price*i.qty));
+ msg+='%0A%0A💰 *TOTAL: $'+total+' MXN*';
+ let notes=document.getElementById('notes').value.trim();if(notes)msg+='%0A📝 *Notas:* '+notes;
+ window.open('https://wa.me/527296891522?text='+msg,'_blank');
+}
+toggleAddress();update();
+</script>
+</body>
+</html>
